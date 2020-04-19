@@ -4,6 +4,6 @@
 
 sbt-codecov
 
-Copyright (c) 2020 Alejandro Hernández. All rights reserved.
+Copyright (c)  com.alejandrohdezma. All rights reserved.
 
-Licensed under Apache-2.0. See [LICENSE](LICENSE.md) for terms.
+Licensed under . See [LICENSE](LICENSE.md) for terms.
