@@ -65,28 +65,29 @@ object CodeCovPlugin extends AutoPlugin {
 
   override def trigger: PluginTrigger = allRequirements
 
-  override def projectSettings: Seq[Def.Setting[_]] = Seq(
-    commands         += testCovered,
-    retrieveCoverage := coverageAggregate.value
-  )
+  override def projectSettings: Seq[Def.Setting[_]] =
+    Seq(
+      commands         += testCovered,
+      retrieveCoverage := coverageAggregate.value
+    )
 
   @SuppressWarnings(Array("scalafix:DisableSyntax.!="))
-  override def buildSettings: Seq[Def.Setting[_]] = Seq(
-    codecovProcess := url("https://codecov.io/bash").cat #| "bash /dev/stdin -Z",
-    codecovUpload := {
-      val log = streams.value.log
+  override def buildSettings: Seq[Def.Setting[_]] =
+    Seq(
+      codecovProcess := url("https://codecov.io/bash").cat #| "bash /dev/stdin -Z",
+      codecovUpload := {
+        val log = streams.value.log
 
-      if (sys.props.get("skip.coverage").contains("true")) {
-        log.warn("Coverage has being disabled by the usage of '-Dskip.coverage=true'")
-      } else {
-        val result = codecovProcess.value ! log
+        if (sys.props.get("skip.coverage").contains("true"))
+          log.warn("Coverage has being disabled by the usage of '-Dskip.coverage=true'")
+        else {
+          val result = codecovProcess.value ! log
 
-        if (result != 0) {
-          sys.error("Unable to upload coverage to Codecov")
+          if (result != 0)
+            sys.error("Unable to upload coverage to Codecov")
         }
       }
-    }
-  )
+    )
 
   private val testCovered = Command.command("testCovered") { state =>
     val testCommand = testConfigs(state).map("+" + _ + ":test").mkString("; ")
