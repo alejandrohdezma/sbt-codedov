@@ -95,7 +95,7 @@ object CodeCovPlugin extends AutoPlugin {
     val enable  = "set coverageEnabled in ThisBuild := true"
     val disable = "set coverageEnabled in ThisBuild := false"
 
-    Command.process(s"$enable; $testCommand; +retrieveCoverage; codecovUpload; $disable", state)
+    Command.process(s";$enable; $testCommand; +retrieveCoverage; codecovUpload; $disable", state)
   }
 
   /**
