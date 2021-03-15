@@ -8,7 +8,7 @@ addCommandAlias("ci-publish", "github; ci-release")
 
 skip in publish := true
 
-lazy val scoverage = "org.scoverage" % "sbt-scoverage" % "1.6.0" % Provided // scala-steward:off
+lazy val scoverage = "org.scoverage" % "sbt-scoverage" % "1.6.1" % Provided // scala-steward:off
 
 lazy val documentation = project
   .enablePlugins(MdocPlugin)
