@@ -6,13 +6,13 @@ addCommandAlias("ci-test", "fix --check; mdoc; scripted")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
 addCommandAlias("ci-publish", "github; ci-release")
 
-skip in publish := true
+publish / skip := true
 
 lazy val scoverage = "org.scoverage" % "sbt-scoverage" % "1.6.1" % Provided // scala-steward:off
 
 lazy val documentation = project
   .enablePlugins(MdocPlugin)
-  .settings(skip in publish := true)
+  .settings(publish / skip := true)
   .settings(mdocOut := file("."))
 
 lazy val `sbt-codecov` = project
