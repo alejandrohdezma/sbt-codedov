@@ -29,7 +29,16 @@ jobs:
           privateKey: ${{ secrets.SCALA_STEWARD_APP_PRIVATE_KEY }}
       - uses: release-drafter/release-drafter@v5
         env:
-          GITHUB_TOKEN: ${{ steps.installation_token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.installation_token.outputs.token }}\
+  check-labels:
+     name: Check if this PR has at least one of the mandatory labels
+     needs: [update_release_draft]
+     runs-on: ubuntu-latest
+     steps:
+       - uses: alejandrohdezma/pr-labels-checker@master
+         with:
+           hasSome: "scala-steward,documentation,breaking-changes"
+           githubToken: ${{ secrets.GITHUB_TOKEN }}
   update-prs:
     name: Update outdated PRs to latest main
     runs-on: ubuntu-latest
@@ -97,7 +106,6 @@ jobs:
         uses: hmarr/auto-approve-action@v2
         with:
           github-token: "${{ secrets.ADMIN_GITHUB_TOKEN }}"
-      - run: sbt generateCiFiles fix || sbt "generateCiFiles; scalafmtAll; scalafmtSbt" || true
       - name: Push changes
         id: push
         uses: stefanzweifel/git-auto-commit-action@v4.10.0
