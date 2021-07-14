@@ -29,7 +29,7 @@ jobs:
           privateKey: ${{ secrets.SCALA_STEWARD_APP_PRIVATE_KEY }}
       - uses: release-drafter/release-drafter@v5
         env:
-          GITHUB_TOKEN: ${{ steps.installation_token.outputs.token }}\
+          GITHUB_TOKEN: ${{ steps.installation_token.outputs.token }}
   check-labels:
      name: Check if this PR has at least one of the mandatory labels
      needs: [update_release_draft]
